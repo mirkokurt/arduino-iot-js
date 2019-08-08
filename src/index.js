@@ -625,6 +625,10 @@ const removePropertyValueCallback = (thingId, name) => {
   }
   const propOutputTopic = `/a/t/${thingId}/e/o`;
   delete propertyCallback[propOutputTopic][name];
+  if (Object.getOwnPropertyNames(propertyCallback[propOutputTopic]).length === 0) {
+    delete propertyCallback[propOutputTopic];
+    unsubscribe(propOutputTopic);
+  }
   return Promise.resolve(propOutputTopic);
 };
 
